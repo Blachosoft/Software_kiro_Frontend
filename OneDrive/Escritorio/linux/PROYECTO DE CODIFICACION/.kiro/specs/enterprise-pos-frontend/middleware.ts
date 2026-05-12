@@ -14,7 +14,7 @@ import { locales, defaultLocale } from './src/i18n';
 export default createMiddleware({
   locales,
   defaultLocale,
-  localePrefix: 'as-needed', // Cambiado de 'always' para evitar redirects infinitos
+  localePrefix: 'always',
 });
 
 export const config = {

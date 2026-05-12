@@ -7,17 +7,25 @@
  * **Validates: Requirements 13.1, 13.2**
  */
 
+
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { LanguageSwitcher } from '../../src/adapters/ui/components/LanguageSwitcher';
 
-export default function DashboardPage() {
+interface Props {
+  params: { locale: string };
+}
+
+export default function DashboardPage({ params }: Props) {
+  const { locale } = params;
+  const t = useTranslations();
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">POS System</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('dashboard.appName')}</h1>
           <LanguageSwitcher />
         </div>
       </header>
@@ -26,10 +34,10 @@ export default function DashboardPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Enterprise POS System
+            {t('dashboard.heroTitle')}
           </h2>
           <p className="text-xl text-gray-600">
-            Welcome to your Point of Sale system
+            {t('dashboard.heroSubtitle')}
           </p>
         </div>
 
@@ -37,7 +45,7 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Sales Card */}
           <Link
-            href="/sales"
+            href={`/${locale}/sales`}
             className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow"
           >
             <div className="flex items-center justify-center w-12 h-12 bg-blue-600 rounded-lg mb-4">
@@ -55,13 +63,13 @@ export default function DashboardPage() {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Sales</h3>
-            <p className="text-gray-600">Process customer transactions</p>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('nav.sales')}</h3>
+            <p className="text-gray-600">{t('sales.subtitle')}</p>
           </Link>
 
           {/* Inventory Card */}
           <Link
-            href="/inventory"
+            href={`/${locale}/inventory`}
             className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow"
           >
             <div className="flex items-center justify-center w-12 h-12 bg-green-600 rounded-lg mb-4">
@@ -79,13 +87,13 @@ export default function DashboardPage() {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Inventory</h3>
-            <p className="text-gray-600">Manage product inventory</p>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('nav.inventory')}</h3>
+            <p className="text-gray-600">{t('inventory.subtitle')}</p>
           </Link>
 
           {/* Customers Card */}
           <Link
-            href="/customers"
+            href={`/${locale}/customers`}
             className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow"
           >
             <div className="flex items-center justify-center w-12 h-12 bg-purple-600 rounded-lg mb-4">
@@ -103,13 +111,13 @@ export default function DashboardPage() {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Customers</h3>
-            <p className="text-gray-600">Manage customer information</p>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('nav.customers')}</h3>
+            <p className="text-gray-600">{t('customers.subtitle')}</p>
           </Link>
 
           {/* Reports Card */}
           <Link
-            href="/reports"
+            href={`/${locale}/reports`}
             className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow"
           >
             <div className="flex items-center justify-center w-12 h-12 bg-orange-600 rounded-lg mb-4">
@@ -127,8 +135,8 @@ export default function DashboardPage() {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Reports</h3>
-            <p className="text-gray-600">View sales and inventory reports</p>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('nav.reports')}</h3>
+            <p className="text-gray-600">{t('reports.subtitle')}</p>
           </Link>
         </div>
       </div>

@@ -16,10 +16,12 @@ export type Locale = (typeof locales)[number];
 // Default locale
 export const defaultLocale: Locale = 'en';
 
-export default getRequestConfig(async ({ locale }) => {
-  // Validate that the incoming `locale` parameter is valid
-  // Si no es válido, usar el locale por defecto en lugar de notFound()
-  const validLocale = locale && locales.includes(locale as Locale) ? locale : defaultLocale;
+export default getRequestConfig(async ({ requestLocale }) => {
+  // next-intl provides the locale via requestLocale in App Router
+  const requestedLocale = await requestLocale;
+  const validLocale = requestedLocale && locales.includes(requestedLocale as Locale)
+    ? requestedLocale
+    : defaultLocale;
 
   return {
     locale: validLocale as string,

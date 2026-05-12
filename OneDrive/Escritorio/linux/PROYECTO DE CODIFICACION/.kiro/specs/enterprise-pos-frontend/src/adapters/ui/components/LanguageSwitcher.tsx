@@ -7,14 +7,18 @@
  * **Validates: Requirements 19.2, 19.3, 19.5**
  */
 
+
 'use client';
+import { locales } from '@/src/i18n';
 
 import { useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useRouter, usePathname } from 'next/navigation';
 import { useTransition } from 'react';
 
 export function LanguageSwitcher() {
   const locale = useLocale();
+  const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
@@ -25,18 +29,21 @@ export function LanguageSwitcher() {
       localStorage.setItem('preferred-locale', newLocale);
     }
 
-    // Update the URL with the new locale
-    startTransition(() => {
-      // Remove the current locale from the pathname
-      const pathnameWithoutLocale = pathname.replace(`/${locale}`, '');
-      router.replace(`/${newLocale}${pathnameWithoutLocale}`);
-    });
+    // Reemplazar el primer segmento de la ruta por el nuevo locale
+    const segments = pathname.split('/').filter(Boolean);
+    if (locales.includes(segments[0])) {
+      segments[0] = newLocale;
+    } else {
+      segments.unshift(newLocale);
+    }
+    const newPath = '/' + segments.join('/');
+    router.replace(newPath);
   };
 
   return (
     <div className="language-switcher">
       <label htmlFor="language-select" className="sr-only">
-        Select Language
+        {t('common.selectLanguage')}
       </label>
       <select
         id="language-select"
@@ -44,7 +51,7 @@ export function LanguageSwitcher() {
         onChange={(e) => handleLanguageChange(e.target.value)}
         disabled={isPending}
         className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
-        aria-label="Language selector"
+        aria-label={t('common.selectLanguage')}
       >
         <option value="en">English</option>
         <option value="es">Español</option>

@@ -8,6 +8,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { useParams, useRouter } from 'next/navigation';
 import { POSNavbar } from '../../../src/adapters/ui/components/POSNavbar';
 import { QuickAccessSidebar } from '../../../src/adapters/ui/components/QuickAccessSidebar';
 import { ProductCatalog } from '../../../src/adapters/ui/components/ProductCatalog';
@@ -18,6 +19,9 @@ import { mockProducts, mockCashier, mockStats } from '../../../src/data/mockProd
 import { MockProduct } from '../../../src/data/mockProducts';
 
 export default function SalesPage() {
+  const router = useRouter();
+  const params = useParams<{ locale?: string }>();
+  const currentLocale = params?.locale ?? 'en';
   const [searchQuery, setSearchQuery] = useState('');
   const [items, setItems] = useState<CartItem[]>([]);
   const [showCashModal, setShowCashModal] = useState(false);
@@ -136,8 +140,8 @@ export default function SalesPage() {
 
   const handleLogout = () => {
     if (confirm('¿Deseas cerrar sesión?')) {
-      // Aquí iría la lógica de logout
-      console.log('Logout');
+      // Redirigir a la pantalla principal del locale actual
+      router.replace(`/${currentLocale}`);
     }
   };
 

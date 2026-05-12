@@ -12,7 +12,13 @@
     "confirm": "Confirmar",
     "back": "Atrás",
     "next": "Siguiente",
-    "submit": "Enviar"
+    "submit": "Enviar",
+    "selectLanguage": "Seleccionar idioma"
+  },
+  "dashboard": {
+    "appName": "Sistema POS",
+    "heroTitle": "Sistema POS Empresarial",
+    "heroSubtitle": "Bienvenido a tu sistema de punto de venta"
   },
   "nav": {
     "dashboard": "Panel",

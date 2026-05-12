@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { notFound } from 'next/navigation';
 import '../globals.css';
-import { locales } from '../../src/i18n';
+import { locales } from '@/src/i18n';
 import { ErrorBoundary } from '../../src/adapters/ui/components/ErrorBoundary';
 import { OfflineIndicator } from '../../src/adapters/ui/components/OfflineIndicator';
 import { ServiceWorkerRegistration } from '../../src/adapters/ui/components/ServiceWorkerRegistration';
@@ -38,7 +37,7 @@ export default async function LocaleLayout({
   const validLocale = locales.includes(locale as any) ? locale : 'en';
 
   // Get messages for the locale
-  const messages = await getMessages();
+  const messages = await getMessages({locale: validLocale});
 
   return (
     <html lang={validLocale}>
@@ -49,7 +48,7 @@ export default async function LocaleLayout({
       </head>
       <body>
         <ErrorBoundary>
-          <NextIntlClientProvider messages={messages}>
+          <NextIntlClientProvider locale={validLocale} messages={messages}>
             <AuthProvider>
               <OfflineProvider>
                 <SaleProvider>
