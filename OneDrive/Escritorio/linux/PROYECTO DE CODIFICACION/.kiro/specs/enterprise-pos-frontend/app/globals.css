@@ -1,0 +1,77 @@
+/* Importar tipografías IBM Plex */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  /* Colores corporativos POS */
+  --color-corporate-primary: #1A3C6E;
+  --color-corporate-primary-dark: #0F2847;
+  --color-corporate-primary-light: #2A4C7E;
+  
+  --color-neutral-bg: #F4F5F7;
+  --color-neutral-bg-dark: #E5E7EB;
+  --color-neutral-border: #D1D5DB;
+  
+  --color-success: #16A34A;
+  --color-success-light: #22C55E;
+  --color-success-dark: #15803D;
+  
+  --color-danger: #DC2626;
+  --color-danger-light: #EF4444;
+  --color-danger-dark: #B91C1C;
+  
+  /* Tipografías */
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  
+  /* Tamaños touch */
+  --min-height-touch: 44px;
+  --min-width-touch: 44px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-neutral-bg);
+  color: rgb(17 24 39);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Asegurar que los números sean tabulares para precios */
+.price,
+.amount,
+.currency {
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-sans);
+}
+
+/* Códigos y tickets con fuente monospace */
+.code,
+.ticket-number,
+.barcode {
+  font-family: var(--font-mono);
+}
+
+/* Utilidad para touch targets */
+.touch-target {
+  min-height: var(--min-height-touch);
+  min-width: var(--min-width-touch);
+}
+
+/* Animación para el toast */
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
